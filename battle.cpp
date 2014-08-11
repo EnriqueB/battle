@@ -146,16 +146,83 @@ void character_creation(player &p){
 	std::cout<<"C represents a chest, a '.' represents an area you have not explored\n"; 
 	std::cout<<"and finally, B represents the boss that you will have to beat in order to escape.\nMay the Gods be with you.\n\n";
 }
+void option_1(player &p){
+	int direction;
+	std::cout<<"Pick your direction: \n";
+	std::cout<<"1.- North\n";
+	std::cout<<"2.- West\n";
+	std::cout<<"3.- South\n";
+	std::cout<<"4.- East\n";
+	std::cin>>direction;
+	switch(direction){
+		case 1:
+			bool pos = check_valid_movement(1);
+			if(pos){
+				move_player(1);
+			}
+			else{
+				std::cout<<"That is not possible\n";
+			}
+			break;
+		case 2:
+			bool pos = check_valid_movement(2);
+			if(pos){
+				move_player(2);
+			}
+			else{
+				std::cout<<"That is not possible\n";
+			}
+			break;
+		case 3:
+			bool pos = check_valid_movement(3);
+			if(pos){
+				move_player(3);
+			}
+			else{
+				std::cout<<"Thatis not possible\n";
+			break;
+		case 4:
+			bool pos = check_valid_movement(4);
+			if(pos){
+				move_player(4);
+			}
+			else{
+				std::cout<<"That is not possible\n";
+			}
+			break;
+		default:
+			std::cout<<"Tha is not a valid option\n";
+			break;
+	}
+}
 void menu(player &p){
-	print_map();
-	std::cout<<"What will you do?\n";
-	std::cout<<"1.- Move\n";
-	std::cout<<"2.- Look at your inventory\n";
-	std::cout<<"3.- Look at the map again\n";
-	std::cout<<"4.- Save and quit\n";
-	int decision;
-	std::cin>>decision;
-	switch(decision){
+	bool menu = true;
+	while(menu){
+		print_map();
+		std::cout<<"What will you do?\n";
+		std::cout<<"1.- Move\n";
+		std::cout<<"2.- Look at your inventory\n";
+		std::cout<<"3.- Look at the map again\n";
+		std::cout<<"4.- Save and quit\n";
+		int decision;
+		std::cin>>decision;
+		switch(decision){
+			case 1:
+				option_1(p);
+				break;
+			case 2:
+				option_2(p);
+				break;
+			case 3:
+				break;
+			case 4:
+				menu=false;
+				std::cout<<"\n";
+				break;
+			default:
+				std::cout<<"That is not a valid option. Please try again \n";
+				break;
+		}
 	}
 }
 int main(){
