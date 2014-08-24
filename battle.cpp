@@ -22,6 +22,7 @@ void map_init(player &p){
 		}
 		i++;
 	}
+	original_map[20][9]='#';
 	chart_player_map(p);	
 }
 void print_map(){
@@ -62,12 +63,12 @@ void character_creation(player &p){
 	p.set_name(n);
 	std::cout<<"Well then, "<<p.get_name()<<" these are your starting stats\n";
 	p.display();
-	std::cout<<"You can rerroll your attributes if you wish to.\n";
-	std::cout<<"You get three rerrolls, each being permanent\n\n";
+	std::cout<<"You can reroll your attributes if you wish to.\n";
+	std::cout<<"You get three rerolls, each being permanent\n\n";
 	int cant=0;
 	std::string choice ="";
 	while(cant<3){
-		std::cout<<"Do you wish to rerroll? Rerrolls left: "<<3-cant<<std::endl;
+		std::cout<<"Do you wish to reroll? Rerrolls left: "<<3-cant<<std::endl;
 		std::cin>>choice;
 		if(choice=="Yes" || choice == "yes"){
 			p.roll();
@@ -156,42 +157,43 @@ void option_1(player &p){
 	std::cin>>direction;
 	switch(direction){
 		case 1:
-			bool pos = check_valid_movement(1);
-			if(pos){
-				move_player(1);
+			if(original_map[p.get_pos_y()-1][p.get_pos_x()]!='#'){
+				p.set_pos_y(p.get_pos_y()-1);
+				chart_player_map(p);
 			}
 			else{
-				std::cout<<"That is not possible\n";
+				std::cout<<"\n\nThat is not possible\n";
 			}
 			break;
 		case 2:
-			bool pos = check_valid_movement(2);
-			if(pos){
-				move_player(2);
+			if(original_map[p.get_pos_y()][p.get_pos_x()-1]!='#'){
+				p.set_pos_x(p.get_pos_x()-1);
+				chart_player_map(p);
 			}
 			else{
-				std::cout<<"That is not possible\n";
+				std::cout<<"\n\nThat is not possible\n";
 			}
 			break;
 		case 3:
-			bool pos = check_valid_movement(3);
-			if(pos){
-				move_player(3);
+			if(original_map[p.get_pos_y()+1][p.get_pos_x()]!='#'){
+				p.set_pos_y(p.get_pos_y()+1);
+				chart_player_map(p);
 			}
 			else{
-				std::cout<<"Thatis not possible\n";
+				std::cout<<"\n\nThat is not possible\n";
+			}
 			break;
 		case 4:
-			bool pos = check_valid_movement(4);
-			if(pos){
-				move_player(4);
+			if(original_map[p.get_pos_y()][p.get_pos_x()+1]!='#'){
+				p.set_pos_x(p.get_pos_x()+1);
+				chart_player_map(p);
 			}
 			else{
-				std::cout<<"That is not possible\n";
+				std::cout<<"\n\nThat is not possible\n";
 			}
 			break;
 		default:
-			std::cout<<"Tha is not a valid option\n";
+			std::cout<<"That is not a valid option\n";
 			break;
 	}
 }
@@ -211,9 +213,10 @@ void menu(player &p){
 				option_1(p);
 				break;
 			case 2:
-				option_2(p);
+			//	option_2(p);
 				break;
 			case 3:
+				print_map();
 				break;
 			case 4:
 				menu=false;
