@@ -7,8 +7,60 @@
 void chart_player_map(player &p);
 void print_map();
 
+//maps
 char original_map[21][21];
 char player_map[21][21];
+
+//Item description arrays
+std::string materialsW[5][2];
+std::string materialsS[5][2];
+std::string materialsA[5][2];
+std::string materialsArmor[5][2];
+std::string materialsR[5][2];
+std::string weaponNames[5];
+std::string quality[5];
+
+void item_descriptions_init(){
+	//weapons
+	std::ifstream input(".\\res\\materialsW");
+	for(int i=0; i<5; i++){
+		input>>materialsW[i][0];
+		getline(input, materialsW[i][1]);
+	}
+	input.close();
+	input.open(".\\res\\materialsS");	
+	for(int i=0; i<5; i++){
+		input>>materialsS[i][0];
+		getline(input, materialsS[i][1]);
+	}
+	input.close();
+	input.open(".\\res\\materialsA");
+	for(int i=0; i<5; i++){
+		input>>materialsA[i][0];
+		getline(input, materialsA[i][1]);
+	}
+	input.close();
+	input.open(".\\res\\materialsArmor");
+	for(int i=0; i<5; i++){
+		input>>materialsArmor[i][0];
+		getline(input, materialsArmor[i][1]);
+	}
+	input.close();
+	input.open(".\\res\\materialsR");
+	for(int i=0; i<5; i++){
+		input>>materialsR[i][0];
+		getline(input, materialsR[i][1]);
+	}
+	input.close();
+	input.open(".\\res\\weaponNames");
+	for(int i=0; i<5; i++)
+		input>>weaponNames[i];
+	input.close();
+	input.open(".\\res\\quality");
+	for(int i=0; i<5; i++)
+		input>>quality[i];
+	input.close();
+}
 void map_init(player &p){
 	memset(original_map, '.', 21*21*sizeof(original_map[0][0]));
 	memset(player_map, '.', 21*21*sizeof(player_map[0][0]));
@@ -22,6 +74,7 @@ void map_init(player &p){
 		}
 		i++;
 	}
+	input.close();
 	original_map[20][9]='#';
 	chart_player_map(p);	
 }
